@@ -1,84 +1,125 @@
-/* arm.swiss, nach CI/CD ARM: Arial, Graustufen, linksbündig, keine Akzentfarbe */
+/* arm.swiss, Gestaltung nach arm-brand: Arial, Graustufen, Schwarz 100 als Hauptfarbe,
+   eine Webfarbe nur als Fläche für die Herkunft. Proportionen auf 12 Spalten,
+   Schriftgrade im Verhältnis 1 : 1.25 : 1.5 : 2 : 3, Abstände in Vielfachen von 8 px. */
 :root{
   --s100:#231F20; --g70:#656263; --g30:#BDBCBC; --g7:#F0EFEF; --w:#FFFFFF;
-  --max:1200px; --pad:clamp(20px,4vw,48px);
+  --kobalt:#1F50B2;
+  --max:1360px; --pad:clamp(24px,5vw,80px); --gut:clamp(16px,2.4vw,40px);
   --f:Arial,Helvetica,sans-serif;
+  --t-s:15px; --t-m:clamp(17px,1.2vw,19px); --t-l:clamp(21px,1.75vw,26px);
+  --t-xl:clamp(28px,2.9vw,42px); --t-xxl:clamp(36px,4.4vw,64px);
+  --sp:clamp(96px,13vw,200px);
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:24px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-body{margin:0;background:var(--w);color:var(--s100);font:400 18px/1.55 var(--f);-webkit-font-smoothing:antialiased}
-h1,h2,h3{font-weight:700;margin:0;letter-spacing:0;line-height:1.15}
-p{margin:0 0 1em}
-a{color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
-a:hover{color:var(--g70)}
-:focus-visible{outline:2px solid var(--s100);outline-offset:3px}
+body{margin:0;background:var(--w);color:var(--s100);font:400 var(--t-m)/1.6 var(--f);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3{font-weight:700;margin:0;line-height:1.1}
+p,ul{margin:0}
+ul{padding:0;list-style:none}
+a{color:inherit;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.18em}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid currentColor;outline-offset:4px}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
 .skip{position:absolute;left:-9999px;top:0}
-.skip:focus{left:var(--pad);top:8px;background:var(--w);padding:6px 10px;z-index:20}
+.skip:focus{left:var(--pad);top:8px;background:var(--w);color:var(--s100);padding:6px 10px;z-index:20}
 
-/* Kopf: Monogramm oben links, Navigation rechts klein in Grau 70 */
-.top-in{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;padding-top:clamp(20px,3vw,36px)}
+/* Raster: 12 Spalten. Titel links über 4, Inhalt rechts über 7, eine Spalte Luft */
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gut)}
+.col-a{grid-column:1 / span 4}
+.col-b{grid-column:6 / span 7}
+
+/* Kopf: Monogramm oben links, Navigation rechts */
+.top-in{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;padding-top:clamp(24px,3.2vw,48px)}
 .mark{display:block;line-height:0}
-.mono{height:56px;width:auto}
-.nav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px 24px;font-size:15px;padding-top:6px}
-.nav a{color:var(--g70);text-decoration:none}
+.mono{height:64px;width:auto}
+.nav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px 32px;font-size:var(--t-s);padding-top:8px}
+.nav a{text-decoration:none;color:var(--g70)}
 .nav a:hover{color:var(--s100)}
 .nav .lang{color:var(--s100);font-weight:700}
+.top-dark .nav a{color:#fff;opacity:.72}
+.top-dark .nav a:hover,.top-dark .nav .lang{opacity:1;color:#fff}
 
-/* Einstieg */
-.hero{padding:clamp(72px,12vw,168px) 0 clamp(64px,9vw,128px)}
-.hero h1{font-size:clamp(48px,8vw,104px);line-height:1;margin-bottom:clamp(24px,3vw,40px)}
-.hero-s{padding:clamp(48px,8vw,104px) 0 clamp(16px,3vw,32px)}
-.hero-s h1{font-size:clamp(40px,6vw,72px);margin:0}
-.sub{font-size:clamp(22px,2.5vw,32px);line-height:1.3;max-width:28em;margin-bottom:.9em}
-.lead{color:var(--g70);font-size:clamp(18px,1.5vw,20px);max-width:34em}
+/* Einstieg: Schwarz 100, ganze Höhe, Titel auf dem unteren Drittel */
+.hero{background:var(--s100);color:#fff;min-height:100vh;min-height:100svh;display:flex;flex-direction:column}
+.hero .top{flex:0 0 auto}
+.hero-in{flex:1 0 auto;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:clamp(56px,9vh,120px);width:100%}
+.hero h1{font-size:clamp(64px,12.4vw,188px);line-height:.9;letter-spacing:-.025em;margin-left:-.05em}
+.sub{font-size:var(--t-l);line-height:1.35;max-width:24em;margin-top:clamp(32px,4vw,56px);color:#fff;opacity:.8}
 
-/* Abschnitte: links Titel klein in Grau 70, rechts Inhalt */
-.sec{padding:0}
-.sec > .wrap{padding-top:clamp(56px,8vw,104px);padding-bottom:clamp(56px,8vw,104px);
-  background:linear-gradient(var(--g30),var(--g30)) no-repeat var(--pad) 0/calc(100% - 2 * var(--pad)) 1px}
-.grid{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(20px,4vw,64px)}
-.col-h{font-size:15px;color:var(--g70);padding-top:5px}
-.prose p{max-width:34em}
-.prose strong{color:var(--s100)}
+/* Aussage */
+.intro{padding:var(--sp) 0 calc(var(--sp) * .75)}
+.statement{grid-column:1 / span 10;font-size:var(--t-xl);line-height:1.25;letter-spacing:-.01em}
+.statement-2{grid-column:6 / span 6;margin-top:clamp(40px,5vw,72px);font-size:var(--t-l);line-height:1.45;color:var(--g70)}
 
-/* Geschäftsfelder: Name fett links, Text rechts, feine Linie dazwischen */
-.fields{list-style:none;margin:28px 0 0;padding:0;border-top:1px solid var(--s100)}
-.field{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(20px,4vw,64px);padding:26px 0;border-bottom:1px solid var(--g30)}
-.field h3{font-size:inherit;line-height:1.55}
-.field p{margin:0;max-width:34em}
-.field .who{color:var(--g70);margin-bottom:.35em}
-.note{font-size:14px;color:var(--g70);margin:24px 0 0;max-width:44em}
+/* Abschnitte */
+.sec{padding:calc(var(--sp) * .75) 0 var(--sp)}
+.sec-grey{background:var(--g7);padding-top:var(--sp)}
+.h2{font-size:var(--t-xxl);line-height:1.05;letter-spacing:-.015em}
 
-/* Kontakt: ein Button, schwarz, eckig */
-.contact strong{font-size:20px}
-.btn{display:inline-block;margin-top:12px;background:var(--s100);color:var(--w);text-decoration:none;font-size:16px;font-weight:700;padding:14px 24px;border:0;border-radius:0}
-.btn:hover{background:var(--g70);color:var(--w)}
+/* Was ARM macht: sechs Felder, drei nebeneinander, getragen vom Weissraum */
+.fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--gut);row-gap:clamp(56px,6vw,96px);margin-top:clamp(56px,7vw,112px)}
+.field{padding-right:clamp(0px,2vw,32px)}
+.field h3{font-size:var(--t-l);line-height:1.2;margin-bottom:16px}
+.field .who{color:var(--g70);margin-bottom:12px}
+.field p{max-width:28em}
+.note{margin-top:clamp(64px,7vw,112px);font-size:var(--t-s);color:var(--g70);max-width:40em}
 
-/* Rechtliches */
-.row{padding:22px 0;border-bottom:1px solid var(--g30)}
-.row:first-child{padding-top:0}
-.row:last-child{border-bottom:0}
-.col-h.small{font-size:15px}
+/* Wie ARM arbeitet */
+.way{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--gut);row-gap:clamp(40px,4.5vw,72px)}
+.way h3{font-size:var(--t-l);margin-bottom:12px}
+.way p{max-width:24em}
 
-/* Fusszeile: klein, Grau 70, ohne Logo */
-.foot{font-size:13px;color:var(--g70)}
-.foot-in{padding-top:28px;padding-bottom:40px;background:linear-gradient(var(--g30),var(--g30)) no-repeat var(--pad) 0/calc(100% - 2 * var(--pad)) 1px}
-.foot-in{display:flex;flex-wrap:wrap;gap:8px 32px}
+/* Herkunft: einzige Farbfläche, Kobaltblau, Schrift weiss */
+.origin{background:var(--kobalt);color:#fff;padding:var(--sp) 0}
+.origin-h{font-size:clamp(48px,7.6vw,120px);line-height:.95;letter-spacing:-.02em}
+.origin-t{font-size:var(--t-l);line-height:1.45;align-self:end;max-width:26em}
+
+/* Kontakt */
+.contact{padding-top:var(--sp)}
+.contact-lead{color:var(--g70);margin-bottom:24px}
+.mail{font-size:var(--t-xxl);font-weight:700;line-height:1.05;letter-spacing:-.015em;word-break:break-word}
+.mail a{text-decoration:none;background:linear-gradient(currentColor,currentColor) no-repeat 0 100%/0 2px;transition:background-size .25s}
+.mail a:hover{background-size:100% 2px}
+.phone{font-size:var(--t-l);margin-top:16px}
+.phone a{text-decoration:none}
+.who-c{margin-top:40px;color:var(--g70)}
+
+/* Rechtliches und 404 */
+.page-head{padding:clamp(64px,10vw,152px) 0 clamp(40px,5vw,72px)}
+.page-head h1{font-size:var(--t-xxl);letter-spacing:-.015em}
+.sub-l{font-size:var(--t-l);color:var(--g70);margin-top:24px;max-width:28em}
+.back{margin-top:40px}
+.legal{padding-bottom:var(--sp)}
+.row{padding:0 0 clamp(32px,3.5vw,48px)}
+.row-h{font-size:var(--t-m)}
+.row .col-b{max-width:34em}
+
+/* Fusszeile: klein, Grau 70, ohne Logo und ohne Linie */
+.foot{font-size:13px;color:var(--g70);padding:40px 0 48px}
+.contact + .foot,.legal + .foot{padding-top:0}
+.foot-in{display:flex;flex-wrap:wrap;gap:8px 40px}
 .foot p{margin:0}
-.foot-links{display:flex;gap:20px;flex-wrap:wrap}
+.foot-links{display:flex;gap:24px;flex-wrap:wrap}
 .foot a{text-decoration:none}
 .foot a:hover{color:var(--s100);text-decoration:underline}
 
-@media (max-width:760px){
-  body{font-size:17px}
-  .mono{height:48px}
-  .nav{font-size:14px;gap:4px 16px;max-width:60%}
-  .grid,.field{grid-template-columns:1fr;gap:10px}
-  .grid > div:empty{display:none}
-  .field{padding:22px 0}
-  .note{margin-top:20px}
-  .foot-in{flex-direction:column}
+@media (min-width:1025px){
+  .field h3{min-height:2.4em}
 }
-@media print{.top,.foot,.btn{display:none}.sec{border:0;padding:24px 0}}
+@media (max-width:1024px){
+  .fields{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .col-a{grid-column:1 / span 12;margin-bottom:40px}
+  .col-b{grid-column:1 / span 12}
+  .origin-t{max-width:30em}
+  .statement{grid-column:1 / span 12}
+  .statement-2{grid-column:3 / span 10}
+}
+@media (max-width:640px){
+  .mono{height:48px}
+  .nav a:not(.lang){display:none}
+  .fields,.way{grid-template-columns:1fr}
+  .statement-2{grid-column:1 / span 12}
+  .field{padding-right:0}
+}
+@media print{.hero{min-height:auto;background:none;color:var(--s100)}.origin{background:none;color:var(--s100)}.nav{display:none}}

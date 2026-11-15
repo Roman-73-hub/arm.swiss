@@ -1,12 +1,12 @@
 # Baut arm.swiss als statische Seite in EN (Hauptsprache) und DE.
-# Grundlage: ARM_20261114_Webseite-arm-swiss_Konzept_v1.3_DE-EN und Skill arm-brand.
+# Grundlage: Skill arm-brand, Design-System «ARM»; Texte aus Website-Konzept v1.3, Gestaltung neu (15.11.2026).
 # Aufruf: python3 _quelle/build.py <zielordner>
 import os, sys, html, json, shutil, urllib.parse
 
 OUT = sys.argv[1] if len(sys.argv) > 1 else "/home/claude/arm/site"
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASE = "https://www.arm.swiss"
-CSS_V = "2"
+CSS_V = "3"
 E = html.escape
 
 ADDR = "Arm AG · Unterer Mattenweg 11 · 3920 Zermatt"
@@ -18,31 +18,31 @@ LINKEDIN = "https://www.linkedin.com/company/armswiss/"
 FIELDS = {
 "en": [
   ("Origination", "For investors, family offices and operators.",
-   "Assets and projects found against a written search profile, often before they are offered. With a market map, monthly reporting and a review after six months."),
+   "Assets and projects found against a written search profile, often before they reach the market. With a market map, a monthly report and a review after six months."),
   ("Investor &amp; Operator Readiness", "For owners, developers and project sponsors.",
-   "An asset or project made ready for investors and operators to decide: market, property, options, operating model, a ten-year business plan and a clear recommendation, in one report."),
+   "An asset or project prepared so that investors and operators can decide: market, property, options, operating model, a ten-year business plan and a clear recommendation."),
   ("Capital Introduction", "For developers, owners and project sponsors.",
-   "Introductions to investors, lenders and operators that fit the project, on the basis of investor-ready documents, up to a letter of intent."),
+   "Personal introductions to investors, lenders and operators who fit the project, on the basis of sound documents, up to a letter of intent."),
   ("Market Entry &amp; Expansion", "For operators, brands and service partners.",
-   "Positioning, a target list and personal introductions to owners and decision-makers, in Switzerland or from Switzerland abroad."),
+   "Positioning, a target list and personal introductions to owners and decision-makers. In Switzerland, or from Switzerland abroad."),
   ("Strategic Counsel", "For owners, boards and investors.",
-   "A confidential second opinion and support in negotiations, as a monthly mandate or for a defined project."),
+   "A confidential second opinion and support in negotiations. Month by month, or for a defined project."),
   ("Destinations &amp; Public Sector", "For municipalities and tourism organisations.",
-   "Which properties in a destination are secure, which are at risk, and what to do about it. With a roadmap for the next five years."),
+   "Which properties in a place are secure, which are at risk, and what to do about it. With a roadmap for the next five years."),
 ],
 "de": [
   ("Origination", "Für Investoren, Family Offices und Betreiber.",
-   "Objekte und Projekte nach schriftlichem Suchprofil, oft bevor sie angeboten werden. Mit Marktkarte, monatlichem Bericht und einer Standortbestimmung nach sechs Monaten."),
+   "Objekte und Projekte nach einem schriftlichen Suchprofil, oft bevor sie auf dem Markt sind. Mit Marktkarte, einem Bericht jeden Monat und einer Standortbestimmung nach sechs Monaten."),
   ("Investor &amp; Operator Readiness", "Für Eigentümer, Entwickler und Projektträger.",
-   "Ein Objekt oder Projekt, entscheidungsreif für Investoren und Betreiber: Markt, Liegenschaft, Optionen, Betriebsmodell, ein Businessplan über zehn Jahre und eine klare Empfehlung, in einem Bericht."),
+   "Ein Objekt oder Projekt so aufbereitet, dass Investoren und Betreiber entscheiden können: Markt, Liegenschaft, Optionen, Betriebsmodell, Businessplan über zehn Jahre und eine klare Empfehlung."),
   ("Capital Introduction", "Für Entwickler, Eigentümer und Projektträger.",
-   "Einführung bei Investoren, Kreditgebern und Betreibern, die zum Projekt passen, auf der Grundlage investorentauglicher Unterlagen, bis zur Absichtserklärung."),
+   "Persönliche Einführung bei Investoren, Kreditgebern und Betreibern, die zum Projekt passen. Auf der Grundlage sauberer Unterlagen, bis zur Absichtserklärung."),
   ("Market Entry &amp; Expansion", "Für Betreiber, Marken und Dienstleister.",
-   "Positionierung, Zielliste und persönliche Einführung bei Eigentümern und Entscheidern, in der Schweiz oder aus der Schweiz ins Ausland."),
+   "Positionierung, Zielliste und persönliche Einführung bei Eigentümern und Entscheidern. In der Schweiz oder von der Schweiz aus."),
   ("Strategic Counsel", "Für Eigentümer, Verwaltungsräte und Investoren.",
-   "Eine vertrauliche Zweitmeinung und Begleitung in Verhandlungen, als Monatsmandat oder für ein bestimmtes Projekt."),
+   "Eine vertrauliche Zweitmeinung und Begleitung in Verhandlungen. Monatlich oder für ein bestimmtes Vorhaben."),
   ("Destinationen und öffentliche Hand", "Für Gemeinden und Tourismusorganisationen.",
-   "Welche Betriebe in einer Destination gesichert sind, welche gefährdet und was zu tun ist. Mit einem Fahrplan für die nächsten fünf Jahre."),
+   "Welche Betriebe im Ort gesichert sind, welche gefährdet und was zu tun ist. Mit einem Fahrplan für die nächsten fünf Jahre."),
 ],
 }
 
@@ -51,24 +51,28 @@ T = {
   "lang": "en", "path": "/", "other": "/de/", "other_label": "DE", "other_name": "Deutsch",
   "title": "ARM | Private Office",
   "desc": "ARM – Private Office in Zermatt connects investors, developers, operators and public institutions, in Switzerland and internationally. Hotels and resorts, serviced and branded residences, workation and mixed-use sites.",
-  "nav": [("#fields", "Fields of work"), ("#way", "Way of working"), ("#contact", "Contact")],
+  "nav": [("#work", "Work"), ("#approach", "Approach"), ("#origins", "Origins"), ("#contact", "Contact")],
+  "ids": ["work", "approach", "origins", "contact"],
   "home": "ARM – Private Office, home",
   "h1": "Private Office",
   "sub": "Connecting investors, developers, operators and public institutions. In Switzerland and internationally.",
-  "lead": "ARM finds assets and projects, makes them ready for investors and operators, introduces capital and partners, and stands beside owners when decisions are due. Hotels and resorts, serviced and branded residences, workation and mixed-use sites, and the destinations around them.",
-  "h_fields": "Fields of work",
+  "lead": "ARM finds assets and projects, makes them ready for investors and operators, brings capital and partners to the table and stands beside owners when decisions are due.",
+  "lead2": "Hotels and resorts, serviced and branded residences, workation and mixed-use sites, and the places they belong to.",
+  "h_work": "What ARM does",
   "lex": "Swiss hotels are generally exempt from the Lex Koller; residential parts are not. Each case is checked with a lawyer.",
-  "h_way": "Way of working",
+  "h_way": "How ARM works",
   "way": [
     ("Discreet.", "Names, figures and intentions stay with the people concerned. ARM does not publish mandates."),
-    ("Switzerland at the core.", "Based in Zermatt, connected to investors and operators across Europe, the Gulf and beyond."),
-    ("Defined.", "A written mandate, a fixed fee or retainer, regular reporting. No remuneration from third parties without the client’s knowledge."),
-    ("By referral.", "Most mandates start with an introduction from someone who knows the work."),
+    ("From Switzerland.", "Based in Zermatt, connected to investors and operators across Europe, the Gulf and beyond."),
+    ("Clear.", "A written mandate, a fixed fee or retainer, regular reporting. No remuneration from third parties without the client’s knowledge."),
+    ("By referral.", "Most mandates begin with an introduction from someone who knows the work."),
   ],
+  "h_origin": "Since 1861",
+  "origin": "In 1861 Friedrich Arm founded a reed-making workshop in Biglen, near Bern. Five generations built hand looms there. Today Arm AG is the private office of Roman Haller in Zermatt. The name has stayed.",
   "h_contact": "Contact",
-  "btn": "Get in touch",
+  "contact_lead": "A first conversation is free and confidential.",
   "mail_subject": "Enquiry via arm.swiss",
-  "country": "Switzerland", "since": "Since 1861",
+  "country": "Switzerland",
   "imprint": ("Imprint", "/legal-notice/"), "privacy": ("Privacy", "/privacy-policy/"),
   "back": "Back to the home page",
   "notfound_t": "Page not found",
@@ -78,32 +82,34 @@ T = {
   "lang": "de-CH", "path": "/de/", "other": "/", "other_label": "EN", "other_name": "English",
   "title": "ARM | Private Office",
   "desc": "ARM – Private Office in Zermatt verbindet Investoren, Entwickler, Betreiber und öffentliche Institutionen, in der Schweiz und international. Hotels und Resorts, bewirtschaftete Wohnungen und Branded Residences, Workation und gemischt genutzte Areale.",
-  "nav": [("#geschaeftsfelder", "Geschäftsfelder"), ("#arbeitsweise", "Arbeitsweise"), ("#kontakt", "Kontakt")],
+  "nav": [("#arbeit", "Arbeit"), ("#haltung", "Haltung"), ("#herkunft", "Herkunft"), ("#kontakt", "Kontakt")],
+  "ids": ["arbeit", "haltung", "herkunft", "kontakt"],
   "home": "ARM – Private Office, Startseite",
   "h1": "Private Office",
-  "sub": "Verbindet Investoren, Entwickler, Betreiber und öffentliche Institutionen. In der Schweiz und international.",
-  "lead": "ARM findet Objekte und Projekte, macht sie entscheidungsreif für Investoren und Betreiber, führt Kapital und Partner ein und steht Eigentümern zur Seite, wenn Entscheide anstehen. Hotels und Resorts, bewirtschaftete Wohnungen und Branded Residences, Workation und gemischt genutzte Areale sowie die Destinationen, in denen sie stehen.",
-  "h_fields": "Geschäftsfelder",
+  "sub": "Verbindet Investoren, Entwickler, Betreiber und öffentliche Hand. In der Schweiz und international.",
+  "lead": "ARM findet Objekte und Projekte, macht sie bereit für Investoren und Betreiber, bringt Kapital und Partner an den Tisch und steht Eigentümern zur Seite, wenn es zu entscheiden gilt.",
+  "lead2": "Hotels und Resorts, bewirtschaftete Wohnungen und Branded Residences, Workation und gemischt genutzte Areale, und die Orte, zu denen sie gehören.",
+  "h_work": "Was ARM macht",
   "lex": "Hotels in der Schweiz sind von der Lex Koller grundsätzlich ausgenommen, Wohnanteile nicht. Jeder Fall wird mit einem Anwalt geprüft.",
-  "h_way": "Arbeitsweise",
+  "h_way": "Wie ARM arbeitet",
   "way": [
     ("Diskret.", "Namen, Zahlen und Absichten bleiben bei den Beteiligten. ARM veröffentlicht keine Mandate."),
-    ("Schweiz im Zentrum.", "Sitz in Zermatt, vernetzt mit Investoren und Betreibern in Europa, am Golf und darüber hinaus."),
-    ("Klar geregelt.", "Ein schriftliches Mandat, ein Festpreis oder Retainer, regelmässiger Bericht. Keine Vergütung von Dritten ohne Wissen des Auftraggebers."),
-    ("Auf Empfehlung.", "Die meisten Mandate beginnen mit einer Einführung durch jemanden, der die Arbeit kennt."),
+    ("Von der Schweiz aus.", "Sitz in Zermatt, vernetzt mit Investoren und Betreibern in Europa, am Golf und darüber hinaus."),
+    ("Klar.", "Ein schriftliches Mandat, ein fester Preis oder Retainer, regelmässige Berichte. Keine Entschädigung von Dritten ohne Wissen des Auftraggebers."),
+    ("Auf Empfehlung.", "Die meisten Mandate beginnen mit einer Empfehlung von jemandem, der die Arbeit kennt."),
   ],
+  "h_origin": "Seit 1861",
+  "origin": "1861 gründete Friedrich Arm in Biglen bei Bern eine Blattmacherei. Fünf Generationen bauten dort Webstühle. Heute ist die Arm AG das Private Office von Roman Haller in Zermatt. Der Name ist geblieben.",
   "h_contact": "Kontakt",
-  "btn": "Kontakt aufnehmen",
+  "contact_lead": "Ein erstes Gespräch ist kostenlos und vertraulich.",
   "mail_subject": "Anfrage über arm.swiss",
-  "country": "Schweiz", "since": "Seit 1861",
+  "country": "Schweiz",
   "imprint": ("Impressum", "/de/impressum/"), "privacy": ("Datenschutz", "/de/datenschutz/"),
   "back": "Zur Startseite",
   "notfound_t": "Seite nicht gefunden",
   "notfound": "Diese Seite gibt es nicht oder nicht mehr.",
 },
 }
-T["en"]["ids"] = ["fields", "way", "contact"]
-T["de"]["ids"] = ["geschaeftsfelder", "arbeitsweise", "kontakt"]
 
 LEGAL = {
 "en": {
@@ -177,11 +183,13 @@ def head(t, title, desc, path, alt_paths):
 <a class="skip" href="#main">{'Skip to content' if t['lang']=='en' else 'Zum Inhalt'}</a>
 """
 
-def header(t, nav=True, other=None):
+def header(t, nav=True, other=None, dark=False):
     links = "".join(f'<a href="{t["path"]}{h}">{E(l)}</a>' for h, l in t["nav"]) if nav else ""
     other = other or t["other"]
-    return f"""<header class="top"><div class="wrap top-in">
-<a class="mark" href="{t['path']}" aria-label="{E(t['home'])}">{svg('monogramm.svg')}</a>
+    mark = svg('monogramm-weiss.svg') if dark else svg('monogramm.svg')
+    cls = "top top-dark" if dark else "top"
+    return f"""<header class="{cls}"><div class="wrap top-in">
+<a class="mark" href="{t['path']}" aria-label="{E(t['home'])}">{mark}</a>
 <nav class="nav" aria-label="{'Main' if t['lang']=='en' else 'Hauptnavigation'}">{links}<a class="lang" href="{other}" hreflang="{'de' if t['lang']=='en' else 'en'}" lang="{'de' if t['lang']=='en' else 'en'}" title="{t['other_name']}">{t['other_label']}</a></nav>
 </div></header>
 """
@@ -189,7 +197,7 @@ def header(t, nav=True, other=None):
 def footer(t, lang):
     im, pr = t["imprint"], t["privacy"]
     return f"""<footer class="foot"><div class="wrap foot-in">
-<p>{ADDR} · {t['country']} · {t['since']}</p>
+<p>{ADDR} · {t['country']}</p>
 <p class="foot-links"><a href="{im[1]}">{im[0]}</a><a href="{pr[1]}">{pr[0]}</a><a href="{LINKEDIN}" rel="noopener">LinkedIn</a></p>
 </div></footer>
 </body>
@@ -207,35 +215,47 @@ def jsonld():
 
 def home(lang):
     t = T[lang]; f = FIELDS[lang]; ids = t["ids"]
-    rows = "".join(
-        f'<li class="field"><h3>{n}</h3><div><p class="who">{E(w)}</p><p>{E(x)}</p></div></li>'
+    cards = "".join(
+        f'<li class="field"><h3>{n}</h3><p class="who">{E(w)}</p><p>{E(x)}</p></li>'
         for n, w, x in f)
-    way = "".join(f"<p><strong>{E(k)}</strong> {E(v)}</p>" for k, v in t["way"])
+    way = "".join(f'<li><h3>{E(k)}</h3><p>{E(v)}</p></li>' for k, v in t["way"])
     mailto = f"mailto:{MAIL}?subject={urllib.parse.quote(t['mail_subject'])}"
     alts = [("en", "/"), ("de", "/de/"), ("x-default", "/")]
-    return (head(t, t["title"], t["desc"], t["path"], alts) + header(t) + f"""<main id="main">
-<section class="hero"><div class="wrap">
+    return (head(t, t["title"], t["desc"], t["path"], alts) + f"""<div class="hero">
+""" + header(t, dark=True) + f"""<div class="wrap hero-in">
 <h1>{t['h1']}</h1>
 <p class="sub">{E(t['sub'])}</p>
-<p class="lead">{E(t['lead'])}</p>
+</div>
+</div>
+<main id="main">
+<section class="intro"><div class="wrap grid">
+<p class="statement">{E(t['lead'])}</p>
+<p class="statement-2">{E(t['lead2'])}</p>
 </div></section>
 
 <section class="sec" id="{ids[0]}"><div class="wrap">
-<div class="grid"><h2 class="col-h">{E(t['h_fields'])}</h2><div></div></div>
-<ol class="fields">{rows}</ol>
-<div class="grid"><div></div><p class="note">{E(t['lex'])}</p></div>
+<h2 class="h2">{E(t['h_work'])}</h2>
+<ul class="fields">{cards}</ul>
+<p class="note">{E(t['lex'])}</p>
 </div></section>
 
-<section class="sec" id="{ids[1]}"><div class="wrap grid">
-<h2 class="col-h">{E(t['h_way'])}</h2>
-<div class="prose">{way}</div>
+<section class="sec sec-grey" id="{ids[1]}"><div class="wrap grid">
+<h2 class="h2 col-a">{E(t['h_way'])}</h2>
+<ul class="way col-b">{way}</ul>
 </div></section>
 
-<section class="sec" id="{ids[2]}"><div class="wrap grid">
-<h2 class="col-h">{E(t['h_contact'])}</h2>
-<div class="prose contact">
-<p><strong>Roman Haller</strong><br><a href="mailto:{MAIL}">{MAIL}</a> · <a href="tel:{TEL_HREF}">{TEL}</a></p>
-<p><a class="btn" href="{mailto}">{E(t['btn'])}</a></p>
+<section class="origin" id="{ids[2]}"><div class="wrap grid">
+<h2 class="origin-h col-a">{E(t['h_origin'])}</h2>
+<p class="origin-t col-b">{E(t['origin'])}</p>
+</div></section>
+
+<section class="sec contact" id="{ids[3]}"><div class="wrap grid">
+<h2 class="h2 col-a">{E(t['h_contact'])}</h2>
+<div class="col-b">
+<p class="contact-lead">{E(t['contact_lead'])}</p>
+<p class="mail"><a href="{mailto}">{MAIL}</a></p>
+<p class="phone"><a href="tel:{TEL_HREF}">{TEL}</a></p>
+<p class="who-c">Roman Haller</p>
 </div>
 </div></section>
 </main>
@@ -247,13 +267,13 @@ def legal(lang, kind):
     other_lang = "de" if lang == "en" else "en"
     other = LEGAL_PATH[other_lang][kind]
     alts = [("en", LEGAL_PATH["en"][kind]), ("de", LEGAL_PATH["de"][kind])]
-    body = "".join(f'<div class="grid row"><h2 class="col-h small">{E(h)}</h2><div class="prose"><p>{b}</p></div></div>' for h, b in blocks)
+    body = "".join(f'<div class="grid row"><h2 class="row-h col-a">{E(h)}</h2><p class="col-b">{b}</p></div>' for h, b in blocks)
     return (head(t, f"{title} | ARM", f"{title}, Arm AG, Zermatt", path, alts).replace(
         '<meta property="og:type"', '<meta name="robots" content="noindex,follow">\n<meta property="og:type"', 1)
         + header(t, nav=False, other=other) + f"""<main id="main">
-<section class="hero hero-s"><div class="wrap"><h1>{E(title)}</h1></div></section>
-<section class="sec"><div class="wrap">{body}
-<div class="grid row"><div></div><p><a href="{t['path']}">{E(t['back'])}</a></p></div>
+<section class="page-head"><div class="wrap"><h1>{E(title)}</h1></div></section>
+<section class="legal"><div class="wrap">{body}
+<div class="grid row"><p class="col-b"><a href="{t['path']}">{E(t['back'])}</a></p></div>
 </div></section>
 </main>
 """ + footer(t, lang))
@@ -263,11 +283,11 @@ def notfound():
     return (head(t, "Page not found | ARM", t["notfound"], "/404.html", []).replace(
         '<meta property="og:type"', '<meta name="robots" content="noindex">\n<meta property="og:type"', 1)
         + header(t, nav=False) + f"""<main id="main">
-<section class="hero"><div class="wrap">
+<section class="page-head"><div class="wrap">
 <h1>{t['notfound_t']}</h1>
-<p class="sub">{t['notfound']}</p>
-<p class="lead" lang="de">{d['notfound']}</p>
-<p><a class="btn" href="/">{t['back']}</a></p>
+<p class="sub-l">{t['notfound']}</p>
+<p class="sub-l" lang="de">{d['notfound']}</p>
+<p class="back"><a href="/">{t['back']}</a></p>
 </div></section>
 </main>
 """ + footer(t, "en"))
