@@ -6,7 +6,7 @@ import os, sys, html, json, shutil, urllib.parse
 OUT = sys.argv[1] if len(sys.argv) > 1 else "/home/claude/arm/site"
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASE = "https://www.arm.swiss"
-CSS_V = "1"
+CSS_V = "2"
 E = html.escape
 
 ADDR = "Arm AG · Unterer Mattenweg 11 · 3920 Zermatt"

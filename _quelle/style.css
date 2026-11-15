@@ -32,20 +32,22 @@ a:hover{color:var(--g70)}
 .hero-s{padding:clamp(48px,8vw,104px) 0 clamp(16px,3vw,32px)}
 .hero-s h1{font-size:clamp(40px,6vw,72px);margin:0}
 .sub{font-size:clamp(22px,2.5vw,32px);line-height:1.3;max-width:28em;margin-bottom:.9em}
-.lead{color:var(--g70);font-size:clamp(18px,1.5vw,20px);max-width:38em}
+.lead{color:var(--g70);font-size:clamp(18px,1.5vw,20px);max-width:34em}
 
 /* Abschnitte: links Titel klein in Grau 70, rechts Inhalt */
-.sec{border-top:1px solid var(--g30);padding:clamp(56px,8vw,104px) 0}
+.sec{padding:0}
+.sec > .wrap{padding-top:clamp(56px,8vw,104px);padding-bottom:clamp(56px,8vw,104px);
+  background:linear-gradient(var(--g30),var(--g30)) no-repeat var(--pad) 0/calc(100% - 2 * var(--pad)) 1px}
 .grid{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(20px,4vw,64px)}
 .col-h{font-size:15px;color:var(--g70);padding-top:5px}
-.prose p{max-width:36em}
+.prose p{max-width:34em}
 .prose strong{color:var(--s100)}
 
 /* Geschäftsfelder: Name fett links, Text rechts, feine Linie dazwischen */
 .fields{list-style:none;margin:28px 0 0;padding:0;border-top:1px solid var(--s100)}
 .field{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:clamp(20px,4vw,64px);padding:26px 0;border-bottom:1px solid var(--g30)}
-.field h3{font-size:clamp(19px,1.6vw,22px)}
-.field p{margin:0;max-width:36em}
+.field h3{font-size:inherit;line-height:1.55}
+.field p{margin:0;max-width:34em}
 .field .who{color:var(--g70);margin-bottom:.35em}
 .note{font-size:14px;color:var(--g70);margin:24px 0 0;max-width:44em}
 
@@ -61,7 +63,8 @@ a:hover{color:var(--g70)}
 .col-h.small{font-size:15px}
 
 /* Fusszeile: klein, Grau 70, ohne Logo */
-.foot{border-top:1px solid var(--g30);padding:28px 0 40px;font-size:13px;color:var(--g70)}
+.foot{font-size:13px;color:var(--g70)}
+.foot-in{padding-top:28px;padding-bottom:40px;background:linear-gradient(var(--g30),var(--g30)) no-repeat var(--pad) 0/calc(100% - 2 * var(--pad)) 1px}
 .foot-in{display:flex;flex-wrap:wrap;gap:8px 32px}
 .foot p{margin:0}
 .foot-links{display:flex;gap:20px;flex-wrap:wrap}
