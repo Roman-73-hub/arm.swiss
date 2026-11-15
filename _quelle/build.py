@@ -272,7 +272,13 @@ def notfound():
 </main>
 """ + footer(t, "en"))
 
-def write(rel, s):
+def write(rel, s, relative=True):
+    # Root-relative Pfade in relative umschreiben, damit die Seite auch unter
+    # roman-73-hub.github.io/arm.swiss/ (Vorschau) und unter www.arm.swiss läuft.
+    if relative:
+        depth = rel.strip("/").count("/") + (1 if rel.strip("/") and rel.endswith("/") else 0)
+        pre = "../" * depth or "./"
+        s = s.replace(' href="/', ' href="' + pre).replace(' src="/', ' src="' + pre)
     p = os.path.join(OUT, rel.lstrip("/"))
     if p.endswith("/"): p += "index.html"
     os.makedirs(os.path.dirname(p), exist_ok=True)
@@ -284,7 +290,7 @@ def main():
     for lang in ("en", "de"):
         for kind in ("imprint", "privacy"):
             write(LEGAL_PATH[lang][kind], legal(lang, kind))
-    write("/404.html", notfound())
+    write("/404.html", notfound(), relative=False)
     shutil.copy(os.path.join(HERE, "style.css"), os.path.join(OUT, "style.css"))
     shutil.copy(os.path.join(HERE, "assets", "favicon.svg"), os.path.join(OUT, "favicon.svg"))
     img = os.path.join(OUT, "img"); os.makedirs(img, exist_ok=True)
@@ -292,7 +298,10 @@ def main():
         if f.endswith(".png"):
             dst = img if f.startswith(("og", "arm-")) else OUT
             shutil.copy(os.path.join(HERE, "assets", f), os.path.join(dst, f))
-    open(os.path.join(OUT, "CNAME"), "w").write("www.arm.swiss\n")
+    if os.environ.get("ARM_DOMAIN", "1") == "1":
+        open(os.path.join(OUT, "CNAME"), "w").write("www.arm.swiss\n")
+    elif os.path.exists(os.path.join(OUT, "CNAME")):
+        os.remove(os.path.join(OUT, "CNAME"))
     open(os.path.join(OUT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nSitemap: {BASE}/sitemap.xml\n")
     urls = ["/", "/de/"]
     sm = "".join(f"<url><loc>{BASE}{u}</loc></url>" for u in urls)
