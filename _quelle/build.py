@@ -6,7 +6,7 @@ import os, sys, html, json, shutil, urllib.parse
 OUT = sys.argv[1] if len(sys.argv) > 1 else "/home/claude/arm/site"
 HERE = os.path.dirname(os.path.abspath(__file__))
 BASE = "https://www.arm.swiss"
-CSS_V = "3"
+CSS_V = "4"
 E = html.escape
 
 ADDR = "Arm AG · Unterer Mattenweg 11 · 3920 Zermatt"
@@ -70,7 +70,7 @@ T = {
   "h_origin": "Since 1861",
   "origin": "In 1861 Friedrich Arm founded a reed-making workshop in Biglen, near Bern. Five generations built hand looms there. Today Arm AG is the private office of Roman Haller in Zermatt. The name has stayed.",
   "h_contact": "Contact",
-  "contact_lead": "A first conversation is free and confidential.",
+  "contact_lead": "Every conversation is confidential.",
   "mail_subject": "Enquiry via arm.swiss",
   "country": "Switzerland",
   "imprint": ("Imprint", "/legal-notice/"), "privacy": ("Privacy", "/privacy-policy/"),
@@ -101,7 +101,7 @@ T = {
   "h_origin": "Seit 1861",
   "origin": "1861 gründete Friedrich Arm in Biglen bei Bern eine Blattmacherei. Fünf Generationen bauten dort Webstühle. Heute ist die Arm AG das Private Office von Roman Haller in Zermatt. Der Name ist geblieben.",
   "h_contact": "Kontakt",
-  "contact_lead": "Ein erstes Gespräch ist kostenlos und vertraulich.",
+  "contact_lead": "Ein Gespräch ist vertraulich.",
   "mail_subject": "Anfrage über arm.swiss",
   "country": "Schweiz",
   "imprint": ("Impressum", "/de/impressum/"), "privacy": ("Datenschutz", "/de/datenschutz/"),
